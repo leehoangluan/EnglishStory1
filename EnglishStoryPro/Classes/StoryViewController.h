@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Story.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GADInterstitial.h"
 
-@interface StoryViewController : UIViewController
+
+@interface StoryViewController : UIViewController<GADInterstitialDelegate> {
+    GADInterstitial *interstitial_;
+}
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigation;
 @property (weak, nonatomic) IBOutlet UITextView *textView;

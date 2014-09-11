@@ -33,6 +33,13 @@
     //Create object story from table view control
     Story *story = self.storyView;
     
+    //Load Interstitial ad
+    interstitial_ =[[GADInterstitial alloc] init];
+    interstitial_.delegate = self;
+    NSDictionary* plist = [[NSBundle mainBundle] infoDictionary];
+    interstitial_.adUnitID = [plist objectForKey:@"GoogleAdmobInterstitial"];
+    [interstitial_ loadRequest:[GADRequest request]];
+    
     //Set information for view control
     [self.navigation setTitle:[@"Story " stringByAppendingString:[NSString stringWithFormat:@"%d", story.id]]];
     [self.textView setText:story.content];
@@ -51,6 +58,11 @@
     //set time start end for slider bar
     self.slider.minimumValue = 0;
     self.slider.maximumValue = _audioPlayer.duration;
+}
+
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    [interstitial_ presentFromRootViewController:self];
 }
 
 //When view control close
